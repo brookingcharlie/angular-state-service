@@ -4,15 +4,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { SubscriberComponent } from './subscriber.component';
-import { ObservedPublisherComponent } from './observed-publisher.component';
 import { SubmittingPublisherComponent } from './submitting-publisher.component';
+import { ObservedPublisherComponent } from './observed-publisher.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SubscriberComponent,
-    ObservedPublisherComponent,
-    SubmittingPublisherComponent
+    SubmittingPublisherComponent,
+    ObservedPublisherComponent
   ],
   imports: [
     BrowserModule,
