@@ -4,11 +4,11 @@ import { SignupService } from './signup.service';
 import { filter } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-signup-form',
-  templateUrl: './signup-form.component.html',
+  selector: 'app-observed-publisher',
+  templateUrl: './observed-publisher.component.html',
   styleUrls: []
 })
-export class SignupFormComponent implements OnInit {
+export class ObservedPublisherComponent implements OnInit {
   signupForm: FormGroup;
 
   constructor(private signupService: SignupService) {}
@@ -33,9 +33,5 @@ export class SignupFormComponent implements OnInit {
     this.signupService.email$
       .pipe(filter((value) => this.signupForm.get('email').value !== value))
       .subscribe((value) => this.signupForm.get('email').setValue(value));
-  }
-
-  onSubmit() {
-    console.log('Submit:', this.signupForm);
   }
 }

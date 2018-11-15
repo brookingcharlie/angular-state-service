@@ -1,0 +1,11 @@
+<h2>Publisher (observed)</h2>
+<form [formGroup]="signupForm" (ngSubmit)="false">
+  <div>
+    <label for="username">Username</label>
+    <input id="username" type="text" formControlName="username" />
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input id="email" type="text" formControlName="email" />
+  </div>
+</form>

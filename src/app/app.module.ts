@@ -3,12 +3,16 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { SignupFormComponent } from './signup-form.component';
+import { SubscriberComponent } from './subscriber.component';
+import { ObservedPublisherComponent } from './observed-publisher.component';
+import { SubmittingPublisherComponent } from './submitting-publisher.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignupFormComponent
+    SubscriberComponent,
+    ObservedPublisherComponent,
+    SubmittingPublisherComponent
   ],
   imports: [
     BrowserModule,
