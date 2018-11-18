@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class ObservedPublisherComponent implements OnInit, OnDestroy {
   private form: FormGroup;
-  private subscriptions: Subscription;
+  private readonly subscriptions: Subscription;
 
   constructor(private userStore: UserStore) {
     this.subscriptions = new Subscription();
@@ -23,21 +23,25 @@ export class ObservedPublisherComponent implements OnInit, OnDestroy {
     });
 
     // Publish form field changes to the service
-    this.subscriptions.add(this.form.get('username').valueChanges.subscribe((value) =>
+    const usernameFieldValue$ = this.form.get('username').valueChanges;
+    this.subscriptions.add(usernameFieldValue$.subscribe((value) =>
       this.userStore.onUsernameChange(value)
     ));
-    this.subscriptions.add(this.form.get('email').valueChanges.subscribe((value) =>
+    const emailFieldValue$ = this.form.get('email').valueChanges;
+    this.subscriptions.add(emailFieldValue$.subscribe((value) =>
       this.userStore.onEmailChange(value)
     ));
 
     // Subscribe to changes from the service and update form fields.
     // Diff checks needed to avoid an infinite publish-subscribe loop.
     this.subscriptions.add(this.userStore.user$.subscribe((user) => {
-      if (this.form.get('username').value !== user.username) {
-        this.form.get('username').setValue(user.username);
+      const usernameField = this.form.get('username');
+      if (usernameField.value !== user.username) {
+        usernameField.setValue(user.username);
       }
-      if (this.form.get('email').value !== user.email) {
-        this.form.get('email').setValue(user.email);
+      const emailField = this.form.get('email');
+      if (emailField.value !== user.email) {
+        emailField.setValue(user.email);
       }
     }));
   }
