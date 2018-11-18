@@ -37,7 +37,7 @@ export class ObservedPublisherComponent implements OnInit, OnDestroy {
         this.form.get('username').setValue(user.username);
       }
       if (this.form.get('email').value !== user.email) {
-        this.form.get('email').setValue(user.email)
+        this.form.get('email').setValue(user.email);
       }
     }));
   }
