@@ -1,2 +1,7 @@
 <h2>Subscriber</h2>
-<p>Welcome, {{username}} ({{email}}).</p>
+<p *ngIf="user">
+  Welcome, {{user.username}} ({{user.email}}).
+</p>
+<p *ngIf="user$ | async as user">
+  Welcome, {{user.username}} ({{user.email}}).
+</p>

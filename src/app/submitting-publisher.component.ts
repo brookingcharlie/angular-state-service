@@ -1,29 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { SignupService } from './signup.service';
+import { UserStore } from './user.store';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-submitting-publisher',
   templateUrl: './submitting-publisher.component.html',
   styleUrls: []
 })
-export class SubmittingPublisherComponent implements OnInit {
-  signupForm: FormGroup;
+export class SubmittingPublisherComponent implements OnInit, OnDestroy {
+  private form: FormGroup;
+  private subscription: Subscription;
 
-  constructor(private signupService: SignupService) {}
+  constructor(private userStore: UserStore) {}
 
   ngOnInit() {
-    this.signupForm = new FormGroup({
+    this.form = new FormGroup({
       'username': new FormControl(null),
       'email': new FormControl(null)
     });
 
-    this.signupService.username$.subscribe(v => this.signupForm.get('username').setValue(v));
-    this.signupService.email$.subscribe(v => this.signupForm.get('email').setValue(v));
+    this.subscription = this.userStore.user$.subscribe(user =>
+      this.form.patchValue({'username': user.username, 'email': user.email})
+    );
   }
 
   onSubmit() {
-    this.signupService.onUsernameChange(this.signupForm.get('username').value);
-    this.signupService.onEmailChange(this.signupForm.get('email').value);
+    const username = this.form.get('username').value;
+    const email = this.form.get('email').value;
+    this.userStore.onRegister(username, email);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
